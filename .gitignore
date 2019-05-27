@@ -1,0 +1,7 @@
+galaxy_raw.json
+galaxy.json
+github_urls.txt
+/stats
+/repo_info
+__pycache__
+*.pyc
