@@ -5,3 +5,4 @@ github_urls.txt
 /repo_info
 __pycache__
 *.pyc
+*.svg
