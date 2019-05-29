@@ -10,6 +10,7 @@ Scripts to extract stats from ansible-galaxy
   * make, grep, xargs, sort, tar
   * ./eplot is copied here from https://github.com/chriswolfvision/eplot
 
+## Goal
 These scripts were written toward prodicing data about how many individual
 ansible-role subdirs (eg. tasks/, vars/, handlers/, etc) have only a single file
 named 'main.{yml,yaml,json}' in them.
