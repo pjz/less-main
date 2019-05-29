@@ -1,11 +1,13 @@
 
+LESSMAIN_DATA=../lessmain-data/repo_info
+
 GALAXY=https://galaxy.ansible.com
 PAGE_SIZE=1000
 PAGE_FETCH_DELAY=60
 
 REPO_FETCH_DELAY=2
 
-all: repo_info
+all: graphs summary
 
 galaxy_raw.json:
 	@touch $@
@@ -25,9 +27,9 @@ github_urls.txt: galaxy.json
 
 .PHONY: repo_info
 repo_info: github_urls.txt
-	@mkdir -p repo_info ;\
+	@mkdir -p $(LESSMAIN_DATA) ;\
 	for repo in `cat $<`; do \
-	    outfile=repo_info/`echo $$repo | sed 's/\//_/'` ;\
+	    outfile=$(LESSMAIN_DATA)/`echo $$repo | sed 's/\//_/g'` ;\
 	    if [ ! -f "$$outfile" ]; then \
 	        echo "Getting $$outfile" ;\
 	        curl -s -L https://github.com/$$repo/archive/master.tar.gz | tar tzvf - >$$outfile ;\
@@ -41,11 +43,11 @@ repo_info: github_urls.txt
 
 stats/%_files:
 	@mkdir -p stats
-	@grep -c -E '$*/[^/]+$$' repo_info/* >$@
+	@grep -c -E '$*/[^/]+$$' $(LESSMAIN_DATA)/* >$@
 
 stats/%_main_files:
 	@mkdir -p stats
-	@grep -c -E '$*/main[^/]+$$' repo_info/* >$@
+	@grep -c -E '$*/main[^/]+$$' $(LESSMAIN_DATA)/* >$@
 
 %.dat: %
 	@cut -d: -f2 $* > $@
@@ -80,4 +82,4 @@ clean:
 	rm -rf galaxy.json helper.pyc github_urls.txt __pycache__ stats
 
 veryclean:
-	rm -f galaxy_raw.json repo_info
+	rm -f galaxy_raw.json $(LESSMAIN_DATA)
