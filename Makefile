@@ -1,5 +1,5 @@
 
-LESSMAIN_DATA=../lessmain-data/repo_info
+LESSMAIN_DATA=../less-main-data/repo_info
 
 GALAXY=https://galaxy.ansible.com
 PAGE_SIZE=1000
